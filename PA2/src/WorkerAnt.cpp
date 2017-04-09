@@ -11,6 +11,7 @@
 #include <string>
 #include <cstdio>
 #include <vector>
+#include <cstdlib>
 using namespace std;
 
 WorkerAnt::WorkerAnt() : _capacity(0), _numPoints(0), _food(NULL) {}
@@ -24,6 +25,7 @@ WorkerAnt::WorkerAnt(const char* inputFileName, const char* outputFileName)
    getline(inputFile, s);
    _numPoints = stoi(s);
    _food = new food[_numPoints+1];
+   _food[0].dist = 0;
    for (int i=1;i<=_numPoints;++i) {
       getline(inputFile, s);
       size_t end = s.find_first_of(' ');
@@ -75,12 +77,11 @@ int WorkerAnt::dist(int i, int j)
 int WorkerAnt::Dynamic()
 {
    int load = 0;
-   _food[0].dist = 0;
    for (int i=1;i<=_numPoints;++i) {
       load = _food[i].weight;
       int distance;
       for (int j=i-1;j>=0;--j) {
-         distance = _food[j].dist + DistToOrigin(j) + dist(j,i) + DistToOrigin(i);
+         distance = _food[j].dist + DistToOrigin(j+1) + dist(j+1,i) + DistToOrigin(i);
          if (distance < _food[i].dist) {
             _food[i].lastReturn = j;
             _food[i].dist = distance;
@@ -117,6 +118,6 @@ int WorkerAnt::Greedy()
    }
    int ret = _food[_numPoints].dist + DistToOrigin(_numPoints);
    _outputFile << _numPoints << endl;
-   _outputFile << ret; 
+   _outputFile << ret << endl;
    return ret; 
 }
