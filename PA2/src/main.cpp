@@ -30,19 +30,19 @@ int main(int argc, char* argv[])
     CommonNs::TmStat stat;
 
     //////////// read the input file /////////////
-    WorkerAnt worker(argv[2]);
-    worker.print();
-    return 0;
+    WorkerAnt worker(argv[2],argv[3]);
 
 
     //////////// find the solution to pick up the food ////
     tmusg.periodStart();
 
     if(strcmp(argv[1], "-GD") == 0) {
-       // greedy 
+        // greedy 
+        worker.Greedy();
     }
     else if(strcmp(argv[1], "-DP") == 0) {
-      // dynamic programming  
+        // dynamic programming  
+        worker.Dynamic();
     }
     else {
         help_message();

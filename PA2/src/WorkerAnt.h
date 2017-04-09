@@ -7,18 +7,23 @@
 
 #ifndef _WORKERANT_H
 #define _WORKERANT_H
+#include <iostream>
+#include <fstream>
+#include <climits>
+using namespace std;
 class food{
  public:
-   food() : x(0), y(0), weight(0), dist(0) {}
+   food() : x(0), y(0), weight(0), dist(INT_MAX), lastReturn(0) {}
    int x;
    int y;
    int weight;
    int dist;
+   int lastReturn;
 };
 class WorkerAnt {
  public:
    WorkerAnt();
-   WorkerAnt(const char* inputFileName);
+   WorkerAnt(const char* inputFileName, const char* outputFileName);
    ~WorkerAnt();
    int Dynamic();
    int Greedy();
@@ -31,6 +36,7 @@ class WorkerAnt {
    int            _capacity;
    int            _numPoints;
    food*          _food;
+   ofstream       _outputFile;
 
 };
 
