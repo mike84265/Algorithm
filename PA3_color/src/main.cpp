@@ -18,6 +18,7 @@ using namespace CommonNs;
 
 void initOpts(OptMgr *mgr);
 void initCmds(CmdMgr *mgr);
+Graph graph("mygraph");
 
 int main(int argc, char **argv) {
 
